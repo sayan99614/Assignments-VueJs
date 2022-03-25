@@ -1,18 +1,26 @@
+<script setup>
+// global component navbar
+import { createApp } from "vue";
+import Navbar from "./components/Navbar.vue";
+const app = createApp({});
+app.component("NavBar", Navbar);
+</script>
+
+
 <template>
-  <GalleryCard/>
+  <Navbar heading="Car Gallery" />
+  <GalleryCard />
 </template>
 
 <script>
-import GalleryCard from "./components/Gallery-card"
-
+import GalleryCard from "./components/Gallery-card";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    GalleryCard
-  }
-}
+    GalleryCard,
+  },
+};
 </script>
 
 <style>
-
 </style>
