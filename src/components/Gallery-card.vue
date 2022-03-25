@@ -1,23 +1,9 @@
 <template>
-  <div class="container">
-    <div class="text-center"></div>
-    <div class="row">
-      <div class="col-sm-6">
-        <h3 class="bg-dark text-white p-1">{{ carName }}</h3>
-        <img
-          v-bind:src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-          alt="car-img"
-          class="img-fluid"
-        />
-      </div>
-      <div class="col-sm-6">
-        <div class="descp">
-          <h5>{{ descp }}</h5>
-          <p>{{ details }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="text-center">
+  <div class="card shadow" style="width: 18rem">
+    <img v-bind:src="carImage" alt="car-img" class="img-fluid card-img-top" />
+    <div class="card-body">
+      <h5 class="card-title">{{ carName }}</h5>
+      <p class="card-text">{{ carDetails }}</p>
       <button class="btn btn-info text-white mt-4 w-25" @click="handleClick">
         Info
       </button>
@@ -50,18 +36,21 @@ export default {
 p {
   text-align: justify;
 }
+.card {
+  border: none;
+}
 .font {
   position: relative;
   font-family: "Roboto", sans-serif;
 }
-.container {
+/* .container {
   box-shadow: rgb(177 174 174) 3px 3px 9px -3px;
   padding: 10px 25px;
   margin-bottom: 15px;
-}
-.descp {
+} */
+/* .descp {
   position: relative;
   top: 45px;
-}
+} */
 </style>
 
