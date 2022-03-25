@@ -1,12 +1,12 @@
 <template>
-  <div class="card shadow" style="width: 500px">
+  <div class="card shadow">
     <img v-bind:src="carImage" alt="car-img" class="img-fluid card-img-top" />
     <div class="card-body">
       <h5 class="card-title">{{ carName }}</h5>
       <p class="card-text">{{ carDetails }}</p>
       <button
-        disabled="!price"
-        class="btn btn-info text-white mt-4 w-25"
+        :disabled="isprice"
+        class="btn btn-info text-white mt-4 w-100"
         @click="handleClick"
       >
         <span v-if="price">Info</span>
@@ -20,7 +20,9 @@
 export default {
   name: "Gallery-card",
   data() {
-    return {};
+    return {
+      isprice: this.price === undefined,
+    };
   },
   methods: {
     handleClick() {
@@ -44,18 +46,8 @@ p {
 .card {
   border: none;
 }
-.font {
-  position: relative;
-  font-family: "Roboto", sans-serif;
+img {
+  height: 200px;
 }
-/* .container {
-  box-shadow: rgb(177 174 174) 3px 3px 9px -3px;
-  padding: 10px 25px;
-  margin-bottom: 15px;
-} */
-/* .descp {
-  position: relative;
-  top: 45px;
-} */
 </style>
 
