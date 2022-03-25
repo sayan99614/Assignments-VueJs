@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow">
+  <div class="card shadow-sm">
     <img v-bind:src="carImage" alt="car-img" class="img-fluid card-img-top" />
     <div class="card-body">
       <h5 class="card-title">{{ carName }}</h5>
