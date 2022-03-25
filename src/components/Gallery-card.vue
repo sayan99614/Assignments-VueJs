@@ -1,11 +1,16 @@
 <template>
-  <div class="card shadow" style="width: 18rem">
+  <div class="card shadow" style="width: 500px">
     <img v-bind:src="carImage" alt="car-img" class="img-fluid card-img-top" />
     <div class="card-body">
       <h5 class="card-title">{{ carName }}</h5>
       <p class="card-text">{{ carDetails }}</p>
-      <button class="btn btn-info text-white mt-4 w-25" @click="handleClick">
-        Info
+      <button
+        disabled="!price"
+        class="btn btn-info text-white mt-4 w-25"
+        @click="handleClick"
+      >
+        <span v-if="price">Info</span>
+        <span v-else>Commig soon...</span>
       </button>
     </div>
   </div>
