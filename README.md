@@ -1,4 +1,4 @@
-# practical-01
+# practical-02
 
 ## Project setup
 ```
