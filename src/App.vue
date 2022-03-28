@@ -16,7 +16,7 @@ app.component("NavBar", Navbar);
           :carImage="car.image"
           :carName="car.name"
           :carDetails="car.desc"
-          :price="car.price"
+          :carPrice="car.price"
         />
       </div>
     </div>
@@ -24,7 +24,7 @@ app.component("NavBar", Navbar);
 </template>
 
 <script>
-import GalleryCard from "./components/Gallery-card";
+import GalleryCard from "./components/GalleryCard.vue";
 export default {
   name: "App",
   components: {

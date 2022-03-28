@@ -5,11 +5,11 @@
       <h5 class="card-title">{{ carName }}</h5>
       <p class="card-text">{{ carDetails }}</p>
       <button
-        :disabled="isprice"
+        :disabled="isPrice"
         class="btn btn-info text-white mt-4 w-100"
         @click="handleClick"
       >
-        <span v-if="price">Info</span>
+        <span v-if="carPrice">Info</span>
         <span v-else>Commig soon...</span>
       </button>
     </div>
@@ -18,22 +18,25 @@
 
 <script>
 export default {
-  name: "Gallery-card",
+  name: "GalleryCard",
   data() {
-    return {
-      isprice: this.price === undefined,
-    };
+    return {};
   },
   methods: {
     handleClick() {
-      alert(`car price is ${this.price}`);
+      alert(`car price is ${this.carPrice}`);
     },
   },
   props: {
     carName: String,
     carImage: String,
     carDetails: String,
-    price: Number,
+    carPrice: Number,
+  },
+  computed: {
+    isPrice() {
+      return this.carPrice === undefined;
+    },
   },
 };
 </script>
