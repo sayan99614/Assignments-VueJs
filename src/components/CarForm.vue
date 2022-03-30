@@ -88,9 +88,11 @@ export default {
     addCar: Function,
   },
   methods: {
-    handleSubmit(values) {
+    handleSubmit(values, formActions) {
       this.showModel = false;
       this.addCar(values);
+      formActions.resetForm();
+      alert("created data" + JSON.stringify(values, 2, null));
     },
   },
 };
