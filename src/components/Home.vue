@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <CarForm />
     <div class="row">
       <div class="col-sm-4" v-for="car in carsinfo" :key="car.name">
         <GalleryCard
@@ -15,10 +16,12 @@
 
 <script>
 import GalleryCard from "./GalleryCard.vue";
+import CarForm from "./CarForm.vue";
 export default {
   name: "HomeComponent",
   components: {
     GalleryCard,
+    CarForm,
   },
   data() {
     return {
