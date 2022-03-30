@@ -4,14 +4,26 @@
     <div class="card-body">
       <h5 class="card-title">{{ carName }}</h5>
       <p class="card-text">{{ carDetails }}</p>
-      <button
-        :disabled="isPrice"
-        class="btn btn-info text-white mt-4 w-100"
-        @click="handleClick"
-      >
-        <span v-if="carPrice">Info</span>
-        <span v-else>Commig soon...</span>
-      </button>
+      <div class="d-flex justify-content-between mt-3 mb-1">
+        <div>
+          <button
+            :disabled="isPrice"
+            class="btn btn-info text-white"
+            @click="handleClick"
+          >
+            <span v-if="carPrice">Info</span>
+            <span v-else>Commig soon...</span>
+          </button>
+        </div>
+        <div class="mt-1">
+          <i class="fa-solid fa-lg text-success fa-pen-to-square"></i>
+          &nbsp;&nbsp;&nbsp;
+          <i
+            @click="deleteCar(carName)"
+            class="fa-solid text-danger fa-lg fa-trash"
+          ></i>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +37,9 @@ export default {
   methods: {
     handleClick() {
       alert(`car price is ${this.carPrice}`);
+    },
+    deleteCar(name) {
+      alert(`deleted ${name} car`);
     },
   },
   props: {
@@ -51,6 +66,9 @@ p {
 }
 img {
   height: 200px;
+}
+i {
+  cursor: pointer;
 }
 </style>
 
