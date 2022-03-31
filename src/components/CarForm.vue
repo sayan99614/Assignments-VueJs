@@ -1,10 +1,12 @@
 <template>
-  <button
-    @click="handleModel(true), handleFormHeading('Add Car')"
-    class="btn btn-primary mb-3"
-  >
-    Add car
-  </button>
+  <div class="d-flex justify-content-end">
+    <button
+      @click="handleModel(true), handleFormHeading('Add Car')"
+      class="btn btn-primary mb-3"
+    >
+      Add car
+    </button>
+  </div>
   <div v-show="showModel" class="model">
     <div class="modal-dialog">
       <div class="modal-content">
