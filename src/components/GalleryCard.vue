@@ -16,10 +16,13 @@
           </button>
         </div>
         <div class="mt-1">
-          <i class="fa-solid fa-lg text-success fa-pen-to-square"></i>
+          <i
+            @click="editCar(carId)"
+            class="fa-solid fa-lg text-success fa-pen-to-square"
+          ></i>
           &nbsp;&nbsp;&nbsp;
           <i
-            @click="deleteCar(carName)"
+            @click="deleteCar(carName, carId)"
             class="fa-solid text-danger fa-lg fa-trash"
           ></i>
         </div>
@@ -38,8 +41,8 @@ export default {
     handleClick() {
       alert(`car price is ${this.carPrice}`);
     },
-    deleteCar(name) {
-      alert(`deleted ${name} car`);
+    deleteCar(name, id) {
+      alert(`deleted ${name} car id: ${id}`);
     },
   },
   props: {
@@ -47,6 +50,8 @@ export default {
     carImage: String,
     carDetails: String,
     carPrice: Number,
+    carId: String,
+    editCar: Function,
   },
   computed: {
     isPrice() {
@@ -71,4 +76,3 @@ i {
   cursor: pointer;
 }
 </style>
-

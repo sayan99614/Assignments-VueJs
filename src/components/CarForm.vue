@@ -1,5 +1,5 @@
 <template>
-  <button @click="showModel = true" class="btn btn-primary mb-3">
+  <button @click="handleModel(true)" class="btn btn-primary mb-3">
     Add car
   </button>
   <div v-show="showModel" class="model">
@@ -11,14 +11,20 @@
             type="button"
             class="btn btn-danger"
             data-dismiss="modal"
-            @click="showModel = false"
+            @click="handleModel(false)"
             aria-label="Close"
           >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <Form @submit="handleSubmit" :validation-schema="schema">
+          <Form
+            @submit="handleSubmit"
+            :validation-schema="schema"
+            :initial-values="initialValues"
+          >
+            <Field type="hidden" name="id" class="form-control" />
+
             <div class="mb-2">
               <label class="form-label">Car Name</label>
               <Field type="text" name="name" class="form-control" />
@@ -32,7 +38,7 @@
 
             <div class="mb-2">
               <label class="form-label">Car Price</label>
-              <Field type="text" name="price" class="form-control" />
+              <Field type="number" name="price" class="form-control" />
               <ErrorMessage class="text-danger" name="price" />
             </div>
             <div class="mb-2">
@@ -68,8 +74,13 @@ export default {
   },
   data() {
     const schema = yup.object({
+      id: yup.string(),
       name: yup.string().required("car name shouldn't be empty"),
-      description: yup.string().required("car details shouldn't be empty"),
+      description: yup
+        .string()
+        .required("car details shouldn't be empty")
+        .min(30)
+        .max(120),
       image: yup
         .string()
         .required("car image url shouldn't be empty")
@@ -80,19 +91,20 @@ export default {
     });
 
     return {
-      showModel: false,
       schema,
     };
   },
   props: {
     addCar: Function,
+    showModel: Boolean,
+    handleModel: Function,
+    initialValues: Object,
   },
   methods: {
     handleSubmit(values, formActions) {
-      this.showModel = false;
       this.addCar(values);
       formActions.resetForm();
-      alert("created data" + JSON.stringify(values, 2, null));
+      this.handleModel(false);
     },
   },
 };

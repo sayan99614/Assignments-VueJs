@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <CarForm :addCar="addCar" />
+    <CarForm
+      :addCar="addCar"
+      :showModel="showModel"
+      :handleModel="handleModel"
+      :initialValues="initialValues"
+    />
     <div class="row">
       <div class="col-sm-4" v-for="car in carsinfo" :key="car.name">
         <GalleryCard
@@ -8,6 +13,8 @@
           :carName="car.name"
           :carDetails="car.description"
           :carPrice="car.price"
+          :carId="car.id"
+          :editCar="editCar"
         />
       </div>
     </div>
@@ -25,8 +32,17 @@ export default {
   },
   data() {
     return {
+      showModel: false,
+      initialValues: {
+        id: "",
+        name: "",
+        description: "",
+        image: "",
+        price: undefined,
+      },
       carsinfo: [
         {
+          id: "123",
           name: "BMW",
           price: undefined,
           description:
@@ -35,6 +51,7 @@ export default {
             "https://images.unsplash.com/photo-1593055357429-62eaf3b259cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
         },
         {
+          id: "123456",
           name: "Fararri",
           price: 50000,
           description:
@@ -43,6 +60,7 @@ export default {
             "https://images.unsplash.com/photo-1621707156632-6c2178138c01?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
         },
         {
+          id: "452135",
           name: "Lamborghini",
           price: 1000000,
           description:
@@ -55,7 +73,40 @@ export default {
   },
   methods: {
     addCar(car) {
-      this.carsinfo.push(car);
+      if (car.id !== "") {
+        this.carsinfo = this.carsinfo.map((c) => {
+          if (c.id === car.id) {
+            c.name = car.name;
+            c.price = car.price;
+            c.description = car.description;
+            c.image = car.image;
+          }
+          return c;
+        });
+        alert("Edited data" + JSON.stringify(car, 2, null));
+        this.initialValues = {
+          id: "",
+          name: "",
+          description: "",
+          image: "",
+          price: undefined,
+        };
+      } else {
+        car.id = this.uuid();
+        this.carsinfo.push(car);
+        alert("created data" + JSON.stringify(car, 2, null));
+      }
+    },
+    uuid() {
+      return new Date().getUTCMilliseconds();
+    },
+    editCar(id) {
+      const car = this.carsinfo.find((car) => car.id === id);
+      this.initialValues = car;
+      this.showModel = true;
+    },
+    handleModel(status) {
+      this.showModel = status;
     },
   },
 };
