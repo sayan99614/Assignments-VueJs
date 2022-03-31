@@ -5,6 +5,8 @@
       :showModel="showModel"
       :handleModel="handleModel"
       :initialValues="initialValues"
+      :formHeading="formHeading"
+      :handleFormHeading="handleFormHeading"
     />
     <div class="row">
       <div class="col-sm-4" v-for="car in carsinfo" :key="car.name">
@@ -15,6 +17,7 @@
           :carPrice="car.price"
           :carId="car.id"
           :editCar="editCar"
+          :handleFormHeading="handleFormHeading"
         />
       </div>
     </div>
@@ -33,6 +36,7 @@ export default {
   data() {
     return {
       showModel: false,
+      formHeading: "",
       initialValues: {
         id: "",
         name: "",
@@ -84,13 +88,7 @@ export default {
           return c;
         });
         alert("Edited data" + JSON.stringify(car, 2, null));
-        this.initialValues = {
-          id: "",
-          name: "",
-          description: "",
-          image: "",
-          price: undefined,
-        };
+        this.resetInitialValues();
       } else {
         car.id = this.uuid();
         this.carsinfo.push(car);
@@ -107,6 +105,19 @@ export default {
     },
     handleModel(status) {
       this.showModel = status;
+      this.resetInitialValues();
+    },
+    handleFormHeading(heading) {
+      this.formHeading = heading;
+    },
+    resetInitialValues() {
+      this.initialValues = {
+        id: "",
+        name: "",
+        description: "",
+        image: "",
+        price: undefined,
+      };
     },
   },
 };

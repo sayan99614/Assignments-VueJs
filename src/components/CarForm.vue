@@ -1,12 +1,15 @@
 <template>
-  <button @click="handleModel(true)" class="btn btn-primary mb-3">
+  <button
+    @click="handleModel(true), handleFormHeading('Add Car')"
+    class="btn btn-primary mb-3"
+  >
     Add car
   </button>
   <div v-show="showModel" class="model">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Add Cars</h5>
+          <h5 class="modal-title">{{ formHeading }}</h5>
           <button
             type="button"
             class="btn btn-danger"
@@ -99,6 +102,8 @@ export default {
     showModel: Boolean,
     handleModel: Function,
     initialValues: Object,
+    handleFormHeading: Function,
+    formHeading: String,
   },
   methods: {
     handleSubmit(values, formActions) {

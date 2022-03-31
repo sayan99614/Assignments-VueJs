@@ -17,7 +17,7 @@
         </div>
         <div class="mt-1">
           <i
-            @click="editCar(carId)"
+            @click="editCar(carId), handleFormHeading('Edit Car')"
             class="fa-solid fa-lg text-success fa-pen-to-square"
           ></i>
           &nbsp;&nbsp;&nbsp;
@@ -52,6 +52,7 @@ export default {
     carPrice: Number,
     carId: String,
     editCar: Function,
+    handleFormHeading: Function,
   },
   computed: {
     isPrice() {
