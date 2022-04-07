@@ -1,17 +1,8 @@
-<script setup>
-// global component navbar
-import { createApp } from "vue";
-import Navbar from "./components/Navbar.vue";
-const app = createApp({});
-app.component("NavBar", Navbar);
-</script>
-
-
 <template>
   <Navbar heading="Car Gallery" />
   <div class="container">
     <div class="row">
-      <div class="col-sm-4" v-for="car in carsinfo" :key="car.name">
+      <div class="col-sm-4" v-for="car in carsInfo" :key="car.name">
         <GalleryCard
           :carImage="car.image"
           :carName="car.name"
@@ -24,15 +15,17 @@ app.component("NavBar", Navbar);
 </template>
 
 <script>
+import Navbar from "./components/Navbar.vue";
 import GalleryCard from "./components/GalleryCard.vue";
 export default {
   name: "App",
   components: {
     GalleryCard,
+    Navbar,
   },
   data() {
     return {
-      carsinfo: [
+      carsInfo: [
         {
           name: "BMW",
           price: undefined,
