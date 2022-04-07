@@ -78,9 +78,22 @@ export default {
           alert("Something went wrong please try again");
         });
     },
+    deleteData(id) {
+      axios
+        .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+        .then((response) => {
+          if (response.status === 204) {
+            this.fetchData();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("can't delete at this moment");
+        });
+    },
     addCar(car) {
       //handle edit submit
-      if (car.id) {
+      if (car.id !== "") {
         this.carsInfo = this.carsInfo.map((c) => {
           if (c.id === car.id) {
             c.name = car.name;
@@ -93,6 +106,7 @@ export default {
         alert("Edited data" + JSON.stringify(car, 2, null));
         this.resetInitialValues();
       } else {
+        car.id = new Date().getTime().toString(36);
         console.log(car);
         this.sendData(car);
       }
@@ -104,7 +118,7 @@ export default {
       this.showModel = true;
     },
     deleteCar(name, id) {
-      alert(`deleted ${name} car id: ${id}`);
+      this.deleteData(id);
     },
     handleModel(status) {
       this.showModel = status;
