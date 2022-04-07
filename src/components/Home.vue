@@ -11,13 +11,14 @@
     <div class="row">
       <div class="col-sm-4" v-for="car in carsInfo" :key="car.name">
         <GalleryCard
-          carImage="https://static.autox.com/uploads/2020/01/Tata-Tiago-image-dynamic-performance.jpg"
+          :carImage="car.image"
           :carName="car.name"
           :carDetails="car.details"
           :carPrice="car.price"
           :carId="car.id"
           :editCar="editCar"
           :handleFormHeading="handleFormHeading"
+          :deleteCar="deleteCar"
         />
       </div>
     </div>
@@ -58,10 +59,28 @@ export default {
         .then((res) => {
           this.carsInfo = res.data.data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          alert("Something went wrong please try again");
+        });
+    },
+    sendData(data) {
+      axios
+        .post("https://testapi.io/api/dartya/resource/cardata", data)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 201) {
+            this.fetchData();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Something went wrong please try again");
+        });
     },
     addCar(car) {
-      if (car.id !== "") {
+      //handle edit submit
+      if (car.id) {
         this.carsInfo = this.carsInfo.map((c) => {
           if (c.id === car.id) {
             c.name = car.name;
@@ -74,18 +93,18 @@ export default {
         alert("Edited data" + JSON.stringify(car, 2, null));
         this.resetInitialValues();
       } else {
-        car.id = this.uuid();
-        this.carsInfo.push(car);
-        alert("created data" + JSON.stringify(car, 2, null));
+        console.log(car);
+        this.sendData(car);
       }
     },
-    uuid() {
-      return new Date().getUTCMilliseconds();
-    },
+    //edit button clicked
     editCar(id) {
       const car = this.carsInfo.find((car) => car.id === id);
       this.initialValues = car;
       this.showModel = true;
+    },
+    deleteCar(name, id) {
+      alert(`deleted ${name} car id: ${id}`);
     },
     handleModel(status) {
       this.showModel = status;

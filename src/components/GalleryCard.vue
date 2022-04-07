@@ -41,9 +41,6 @@ export default {
     handleClick() {
       alert(`car price is ${this.carPrice}`);
     },
-    deleteCar(name, id) {
-      alert(`deleted ${name} car id: ${id}`);
-    },
   },
   props: {
     carName: String,
@@ -53,6 +50,7 @@ export default {
     carId: Number,
     editCar: Function,
     handleFormHeading: Function,
+    deleteCar: Function,
   },
   computed: {
     isPrice() {

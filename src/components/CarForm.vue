@@ -56,7 +56,7 @@
                 name="details"
                 rows="2"
               />
-              <ErrorMessage class="text-danger" name="description" />
+              <ErrorMessage class="text-danger" name="details" />
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -84,7 +84,7 @@ export default {
       details: yup
         .string()
         .required("car details shouldn't be empty")
-        .min(30)
+        .min(5)
         .max(120),
       image: yup
         .string()
