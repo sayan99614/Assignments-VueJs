@@ -12,7 +12,7 @@
             @click="handleClick"
           >
             <span v-if="carPrice">Info</span>
-            <span v-else>Commig soon...</span>
+            <span v-else>Available soon</span>
           </button>
         </div>
         <div class="mt-1">
