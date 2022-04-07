@@ -53,7 +53,7 @@
               <Field
                 as="textarea"
                 class="form-control"
-                name="description"
+                name="details"
                 rows="2"
               />
               <ErrorMessage class="text-danger" name="description" />
@@ -81,7 +81,7 @@ export default {
     const schema = yup.object({
       id: yup.string(),
       name: yup.string().required("car name shouldn't be empty"),
-      description: yup
+      details: yup
         .string()
         .required("car details shouldn't be empty")
         .min(30)

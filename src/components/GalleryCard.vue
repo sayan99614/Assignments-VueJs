@@ -50,7 +50,7 @@ export default {
     carImage: String,
     carDetails: String,
     carPrice: Number,
-    carId: String,
+    carId: Number,
     editCar: Function,
     handleFormHeading: Function,
   },
