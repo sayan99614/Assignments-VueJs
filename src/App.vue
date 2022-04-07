@@ -1,10 +1,3 @@
-<script setup>
-// global component navbar
-import { createApp } from "vue";
-import Navbar from "./components/Navbar.vue";
-const app = createApp({});
-app.component("NavBar", Navbar);
-</script>
 <template>
   <Navbar heading="Car Gallery" />
   <Home />
@@ -12,10 +5,13 @@ app.component("NavBar", Navbar);
 
 <script>
 import Home from "./components/Home.vue";
+import Navbar from "./components/Navbar.vue";
+document.title = "Cars Gallery";
 export default {
   name: "App",
   components: {
     Home,
+    Navbar,
   },
 };
 </script>

@@ -9,7 +9,7 @@
       :handleFormHeading="handleFormHeading"
     />
     <div class="row">
-      <div class="col-sm-4" v-for="car in carsinfo" :key="car.name">
+      <div class="col-sm-4" v-for="car in carsInfo" :key="car.name">
         <GalleryCard
           :carImage="car.image"
           :carName="car.name"
@@ -44,7 +44,7 @@ export default {
         image: "",
         price: undefined,
       },
-      carsinfo: [
+      carsInfo: [
         {
           id: "123",
           name: "BMW",
@@ -78,7 +78,7 @@ export default {
   methods: {
     addCar(car) {
       if (car.id !== "") {
-        this.carsinfo = this.carsinfo.map((c) => {
+        this.carsInfo = this.carsInfo.map((c) => {
           if (c.id === car.id) {
             c.name = car.name;
             c.price = car.price;
@@ -91,7 +91,7 @@ export default {
         this.resetInitialValues();
       } else {
         car.id = this.uuid();
-        this.carsinfo.push(car);
+        this.carsInfo.push(car);
         alert("created data" + JSON.stringify(car, 2, null));
       }
     },
@@ -99,7 +99,7 @@ export default {
       return new Date().getUTCMilliseconds();
     },
     editCar(id) {
-      const car = this.carsinfo.find((car) => car.id === id);
+      const car = this.carsInfo.find((car) => car.id === id);
       this.initialValues = car;
       this.showModel = true;
     },
