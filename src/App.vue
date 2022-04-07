@@ -17,6 +17,7 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import GalleryCard from "./components/GalleryCard.vue";
+document.title = "Car Gallery";
 export default {
   name: "App",
   components: {
