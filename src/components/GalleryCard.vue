@@ -46,7 +46,7 @@ export default {
     carName: String,
     carImage: String,
     carDetails: String,
-    carPrice: Number,
+    carPrice: String,
     carId: Number,
     editCar: Function,
     handleFormHeading: Function,
@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 p {
   text-align: justify;

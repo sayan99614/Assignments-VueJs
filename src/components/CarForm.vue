@@ -43,7 +43,7 @@
 
             <div class="mb-2">
               <label class="form-label">Car Price</label>
-              <Field type="number" name="price" class="form-control" />
+              <Field type="text" name="price" class="form-control" />
               <ErrorMessage class="text-danger" name="price" />
             </div>
             <div class="mb-2">
@@ -91,8 +91,9 @@ export default {
         .required("car image url shouldn't be empty")
         .url("imge should be in url format"),
       price: yup
-        .number("price must be nuber")
-        .required("car price shouldn't be empty"),
+        .string()
+        .required("Please enter the required field")
+        .matches(/^[0-9\s]+$/, "Only numbers are allowed for this field "),
     });
 
     return {
