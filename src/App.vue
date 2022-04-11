@@ -1,16 +1,14 @@
 <template>
   <Navbar heading="Car Gallery" />
-  <Home />
+  <router-view />
 </template>
 
 <script>
-import Home from "./components/Home.vue";
 import Navbar from "./components/Navbar.vue";
 document.title = "Cars Gallery";
 export default {
   name: "App",
   components: {
-    Home,
     Navbar,
   },
 };
