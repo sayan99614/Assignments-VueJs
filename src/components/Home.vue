@@ -6,7 +6,6 @@
       :handleModel="handleModel"
       :initialValues="initialValues"
       :formHeading="formHeading"
-      :handleFormHeading="handleFormHeading"
     />
     <div class="row">
       <div class="col-sm-4" v-for="car in carsInfo" :key="car.name">
@@ -17,7 +16,6 @@
           :carPrice="car.price"
           :carId="car.id"
           :editCar="editCar"
-          :handleFormHeading="handleFormHeading"
           :deleteCar="deleteCar"
         />
       </div>
@@ -37,6 +35,13 @@ export default {
   },
   created() {
     this.fetchData();
+  },
+  mounted() {
+    window.addEventListener("click", (event) => {
+      if (event.target.id === "formmodel") {
+        this.showModel = false;
+      }
+    });
   },
   data() {
     return {
@@ -117,6 +122,7 @@ export default {
     },
     //edit button clicked
     editCar(id) {
+      this.formHeading = "Edit Car";
       const car = this.carsInfo.find((car) => car.id === id);
       this.initialValues = car;
       this.showModel = true;
@@ -125,6 +131,7 @@ export default {
       this.deleteData(id);
     },
     handleModel(status) {
+      this.formHeading = "";
       this.showModel = status;
       this.resetInitialValues();
     },
