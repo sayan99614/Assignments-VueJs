@@ -31,6 +31,13 @@ export default {
     GalleryCard,
     CarForm,
   },
+  mounted() {
+    window.addEventListener("click", (event) => {
+      if (event.target.id === "formmodel") {
+        this.showModel = false;
+      }
+    });
+  },
   data() {
     return {
       showModel: false,

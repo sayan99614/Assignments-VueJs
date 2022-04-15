@@ -5,7 +5,7 @@
     </button>
   </div>
   <Teleport to="#model">
-    <div v-show="showModel" class="model">
+    <div v-show="showModel" class="model" id="formmodel">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -119,15 +119,13 @@ export default {
 
 <style scoped>
 .model {
-  position: absolute;
+  position: fixed;
+  z-index: 9998;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  background-size: contain;
-  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
 }
 </style>
