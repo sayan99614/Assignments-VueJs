@@ -1,18 +1,18 @@
 <template>
-  <GalleryCard/>
+  <Navbar heading="Car Gallery" />
+  <Home />
 </template>
 
 <script>
-import GalleryCard from "./components/Gallery-card"
-
+import Home from "./components/Home.vue";
+import Navbar from "./components/Navbar.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    GalleryCard
-  }
-}
+    Home,
+    Navbar,
+  },
+};
 </script>
-
 <style>
-
 </style>
