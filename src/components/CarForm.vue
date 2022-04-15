@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-end">
-    <button @click="handleModel(true)" class="btn btn-primary mb-3">
+    <button @click="handelModelandResetFields" class="btn btn-primary mb-3">
       Add car
     </button>
   </div>
@@ -24,6 +24,7 @@
           <div class="modal-body">
             <Form
               @submit="handleSubmit"
+              ref="form"
               :validation-schema="schema"
               :initial-values="initialValues"
             >
@@ -52,6 +53,7 @@
                 <Field
                   as="textarea"
                   class="form-control"
+                  autocomplete="off"
                   name="description"
                   rows="2"
                 />
@@ -110,8 +112,15 @@ export default {
   methods: {
     handleSubmit(values, formActions) {
       this.addCar(values);
-      formActions.resetForm();
       this.handleModel(false);
+      formActions.resetForm();
+    },
+  },
+  computed: {
+    handelModelandResetFields() {
+      this.handleModel(true);
+      this.$refs.form.resetForm();
+      return null;
     },
   },
 };

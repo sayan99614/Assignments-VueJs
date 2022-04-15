@@ -35,6 +35,7 @@ export default {
     window.addEventListener("click", (event) => {
       if (event.target.id === "formmodel") {
         this.showModel = false;
+        this.resetInitialValues();
       }
     });
   },
@@ -47,7 +48,7 @@ export default {
         name: "",
         description: "",
         image: "",
-        price: undefined,
+        price: "",
       },
       carsInfo: [
         {
@@ -55,7 +56,7 @@ export default {
           name: "BMW",
           price: undefined,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, laudantium. Molestias possimus at voluptatum recusandae alias laborum debitis nihil placeat quas earum odit cupiditate nostrum fuga, consequuntur velit. Neque, tenetur!",
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, laudantium.",
           image:
             "https://images.unsplash.com/photo-1593055357429-62eaf3b259cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
         },
@@ -64,7 +65,7 @@ export default {
           name: "Fararri",
           price: 50000,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, laudantium. Molestias possimus at voluptatum recusandae alias laborum debitis nihil placeat quas earum odit cupiditate nostrum fuga, consequuntur velit. Neque, tenetur!",
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, laudantium.",
           image:
             "https://images.unsplash.com/photo-1621707156632-6c2178138c01?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
         },
@@ -73,7 +74,7 @@ export default {
           name: "Lamborghini",
           price: 1000000,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, laudantium. Molestias possimus at voluptatum recusandae alias laborum debitis nihil placeat quas earum odit cupiditate nostrum fuga, consequuntur velit. Neque, tenetur!",
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, laudantium.",
           image:
             "https://images.unsplash.com/photo-1571607388263-1044f9ea01dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=795&q=80",
         },
@@ -110,11 +111,12 @@ export default {
       this.showModel = true;
     },
     handleModel(status) {
+      console.log(this.initialValues);
+      this.resetInitialValues();
       this.showModel = status;
       if (status === false) {
         this.formHeading = "";
       }
-      this.resetInitialValues();
     },
     handleFormHeading(heading) {
       this.formHeading = heading;
@@ -125,7 +127,7 @@ export default {
         name: "",
         description: "",
         image: "",
-        price: undefined,
+        price: "",
       };
     },
   },
