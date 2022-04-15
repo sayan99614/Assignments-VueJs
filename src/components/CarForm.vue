@@ -1,70 +1,70 @@
 <template>
   <div class="d-flex justify-content-end">
-    <button
-      @click="handleModel(true), handleFormHeading('Add Car')"
-      class="btn btn-primary mb-3"
-    >
+    <button @click="handleModel(true)" class="btn btn-primary mb-3">
       Add car
     </button>
   </div>
-  <div v-show="showModel" class="model">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ formHeading }}</h5>
-          <button
-            type="button"
-            class="btn btn-danger"
-            data-dismiss="modal"
-            @click="handleModel(false)"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <Form
-            @submit="handleSubmit"
-            :validation-schema="schema"
-            :initial-values="initialValues"
-          >
-            <Field type="hidden" name="id" class="form-control" />
+  <Teleport to="#model">
+    <div v-show="showModel" class="model">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 v-if="formHeading" class="modal-title">{{ formHeading }}</h5>
+            <h5 v-else class="modal-title">Add Car</h5>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-dismiss="modal"
+              @click="handleModel(false)"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <Form
+              @submit="handleSubmit"
+              :validation-schema="schema"
+              :initial-values="initialValues"
+            >
+              <Field type="hidden" name="id" class="form-control" />
 
-            <div class="mb-2">
-              <label class="form-label">Car Name</label>
-              <Field type="text" name="name" class="form-control" />
-              <ErrorMessage class="text-danger" name="name" />
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Car Image</label>
-              <Field type="text" name="image" class="form-control" />
-              <ErrorMessage class="text-danger" name="image" />
-            </div>
+              <div class="mb-2">
+                <label class="form-label">Car Name</label>
+                <Field type="text" name="name" class="form-control" />
+                <ErrorMessage class="text-danger" name="name" />
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Car Image</label>
+                <Field type="text" name="image" class="form-control" />
+                <ErrorMessage class="text-danger" name="image" />
+              </div>
 
-            <div class="mb-2">
-              <label class="form-label">Car Price</label>
-              <Field type="number" name="price" class="form-control" />
-              <ErrorMessage class="text-danger" name="price" />
-            </div>
-            <div class="mb-2">
-              <label for="exampleInputPassword1" class="form-label"
-                >Car Details</label
-              >
-              <Field
-                as="textarea"
-                class="form-control"
-                name="description"
-                rows="2"
-              />
-              <ErrorMessage class="text-danger" name="description" />
-            </div>
+              <div class="mb-2">
+                <label class="form-label">Car Price</label>
+                <Field type="number" name="price" class="form-control" />
+                <ErrorMessage class="text-danger" name="price" />
+              </div>
+              <div class="mb-2">
+                <label for="exampleInputPassword1" class="form-label"
+                  >Car Details</label
+                >
+                <Field
+                  as="textarea"
+                  class="form-control"
+                  name="description"
+                  rows="2"
+                />
+                <ErrorMessage class="text-danger" name="description" />
+              </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </Form>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </Form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script>
@@ -120,8 +120,14 @@ export default {
 <style scoped>
 .model {
   position: absolute;
-  top: 80px;
-  z-index: 1;
-  width: 300px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 </style>

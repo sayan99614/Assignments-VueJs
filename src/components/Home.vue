@@ -6,7 +6,6 @@
       :handleModel="handleModel"
       :initialValues="initialValues"
       :formHeading="formHeading"
-      :handleFormHeading="handleFormHeading"
     />
     <div class="row">
       <div class="col-sm-4" v-for="car in carsInfo" :key="car.name">
@@ -17,7 +16,6 @@
           :carPrice="car.price"
           :carId="car.id"
           :editCar="editCar"
-          :handleFormHeading="handleFormHeading"
         />
       </div>
     </div>
@@ -99,12 +97,16 @@ export default {
       return new Date().getUTCMilliseconds();
     },
     editCar(id) {
+      this.formHeading = "Edit Car";
       const car = this.carsInfo.find((car) => car.id === id);
       this.initialValues = car;
       this.showModel = true;
     },
     handleModel(status) {
       this.showModel = status;
+      if (status === false) {
+        this.formHeading = "";
+      }
       this.resetInitialValues();
     },
     handleFormHeading(heading) {
