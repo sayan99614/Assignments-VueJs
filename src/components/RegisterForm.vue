@@ -144,7 +144,11 @@ export default {
   methods: {
     registerSubmit(data, formActions) {
       console.log(data);
-      this.sendUserData(data);
+      // this.sendUserData(data);
+      /*used simple method because api is not woeking */
+      setTimeout(() => {
+        this.$router.push({ name: "Login" });
+      }, 2000);
       formActions.resetForm();
     },
     sendUserData(data) {

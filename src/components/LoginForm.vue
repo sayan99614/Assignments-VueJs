@@ -44,7 +44,7 @@
 
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
-import axios from "axios";
+// import axios from "axios";
 import * as yup from "yup";
 export default {
   name: "LoginForm",
@@ -70,17 +70,22 @@ export default {
       formActions.resetForm();
     },
     loginUser(user) {
-      axios
-        .post("https://testapi.io/api/dartya/login", user)
-        .then((response) => {
-          if (response.status === 200) {
-            this.$router.push({ name: "Home" });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("something went wrong please try again");
-        });
+      // axios
+      //   .post("https://testapi.io/api/dartya/login", user)
+      //   .then((response) => {
+      //     if (response.status === 200) {
+      //       this.$router.push({ name: "Home" });
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     alert("something went wrong please try again");
+      //   });
+      if (user.email === "admin@gmail.com" && user.password === "test@123") {
+        this.$router.push({ name: "Home" });
+      } else {
+        alert("email or password is wrong");
+      }
     },
   },
 };
