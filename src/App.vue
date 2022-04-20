@@ -5,7 +5,6 @@
 
 <script>
 import Navbar from "./components/Navbar.vue";
-document.title = "Cars Gallery";
 export default {
   name: "App",
   components: {
