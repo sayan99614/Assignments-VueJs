@@ -1,9 +1,16 @@
-practical-04
+practical-05
+### Login Credentials
+```
+email:admin@gmail.com
+password:test@123
+```
+
 
 ## Project setup
 ```
 npm run install
 ```
+
 
 ### Compiles and hot-reloads for development
 ```
