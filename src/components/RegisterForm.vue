@@ -97,7 +97,9 @@
               <ErrorMessage class="text-danger" name="dob" />
             </div>
             <div class="text-center mt-3">
-              <button class="btn btn-primary w-100">Register</button>
+              <button class="btn btn-primary w-100" :disabled="isLoading">
+                {{ isLoading ? "Loading..." : "submit" }}
+              </button>
             </div>
           </Form>
         </div>
@@ -111,7 +113,6 @@
 
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
-import axios from "axios";
 import * as yup from "yup";
 export default {
   name: "LoginForm",
@@ -134,33 +135,50 @@ export default {
         .string()
         .required()
         .matches(/^[0-9\s]+$/, "Only numbers are allowed for this field "),
-      dob: yup.date().required(),
+      dob: yup
+        .date()
+        .required()
+        .test(
+          "future-date",
+          () => `invalid date you can't enter future date`,
+          (value) => {
+            return this.isFutureDate(this.formatDate(new Date(value)));
+          }
+        ),
     });
 
     return {
       validationSchema,
+      isLoading: false,
     };
   },
   methods: {
     registerSubmit(data, formActions) {
-      console.log(data);
-      // this.sendUserData(data);
       /*used simple method because api is not woeking */
+      this.isLoading = true;
       setTimeout(() => {
+        this.isLoading = false;
         this.$router.push({ name: "Login" });
       }, 2000);
       formActions.resetForm();
     },
-    sendUserData(data) {
-      axios
-        .post("https://testapi.io/api/dartya/resource/users", data)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("please try again later");
-        });
+    isFutureDate(idate) {
+      let today = new Date().getTime();
+      idate = idate.split("/");
+
+      idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+      return today - idate > 0;
+    },
+    formatDate(date) {
+      const yyyy = date.getFullYear();
+      let mm = date.getMonth() + 1; // Months start at 0!
+      let dd = date.getDate();
+
+      if (dd < 10) dd = "0" + dd;
+      if (mm < 10) mm = "0" + mm;
+
+      const result = dd + "/" + mm + "/" + yyyy;
+      return result;
     },
   },
 };
