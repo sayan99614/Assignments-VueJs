@@ -27,7 +27,7 @@
 <script>
 import GalleryCard from "./GalleryCard.vue";
 import CarForm from "./CarForm.vue";
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "HomeComponent",
   components: {
@@ -35,7 +35,7 @@ export default {
     CarForm,
   },
   created() {
-    this.fetchData();
+    this.fetchCar();
   },
   data() {
     return {
@@ -47,8 +47,6 @@ export default {
         price: undefined,
       },
       showModel: false,
-      carsInfo: [],
-      isLoading: true,
     };
   },
   mounted() {
@@ -58,63 +56,28 @@ export default {
       }
     });
   },
+  computed: {
+    ...mapState({
+      carsInfo: (state) => state.carData,
+      isLoading: (state) => state.isLoading,
+    }),
+  },
   methods: {
-    fetchData() {
-      axios
-        .get("https://testapi.io/api/dartya/resource/cardata")
-        .then((res) => {
-          this.carsInfo = res.data.data;
-          this.isLoading = false;
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("Something went wrong please try again");
-        });
-    },
-    sendData(data) {
-      axios
-        .post("https://testapi.io/api/dartya/resource/cardata", data)
-        .then((response) => {
-          console.log(response);
-          if (response.status === 201) {
-            this.fetchData();
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("Something went wrong please try again");
-        });
-    },
-    deleteData(id) {
-      axios
-        .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
-        .then((response) => {
-          if (response.status === 204) {
-            this.fetchData();
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("can't delete at this moment");
-        });
-    },
-    putData(id, data) {
-      axios
-        .put(`https://testapi.io/api/dartya/resource/cardata/${id}`, data)
-        .then((response) => {
-          if (response.status === 200) {
-            this.fetchData();
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          alert(`cannot update at this moment`);
-        });
-    },
+    ...mapActions({
+      fetchCar: "getAllCar",
+      putData: "putData",
+      sendData: "sendData",
+      deleteData: "deleteData",
+    }),
+
     addCar(car) {
       //handle edit submit
       if (car.id) {
-        this.putData(car.id, car);
+        const dataToChange = {
+          id: car.id,
+          data: car,
+        };
+        this.putData(dataToChange);
         this.resetInitialValues();
       } else {
         car.id = new Date().getTime().toString(36);
@@ -152,6 +115,5 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 </style>

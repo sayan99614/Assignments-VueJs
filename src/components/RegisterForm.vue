@@ -113,6 +113,7 @@
 
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { mapActions } from "vuex";
 import * as yup from "yup";
 export default {
   name: "LoginForm",
@@ -153,11 +154,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["createUser"]),
     registerSubmit(data, formActions) {
       /*used simple method because api is not woeking */
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false;
+        this.createUser(data);
         this.$router.push({ name: "Login" });
       }, 2000);
       formActions.resetForm();

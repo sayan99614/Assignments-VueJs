@@ -25,36 +25,25 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "SingleCar",
   created() {
-    this.getCarById(this.carId);
-  },
-  data() {
-    return {
-      carData: {},
-      loading: true,
-    };
+    this.getCarById(this.$route.params.id);
   },
   methods: {
-    getCarById() {
-      axios
-        .get(
-          `https://testapi.io/api/dartya/resource/cardata/${this.$route.params.id}}`
-        )
-        .then((response) => {
-          this.carData = response.data;
-          this.loading = false;
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("something went wrong please try after some time");
-        });
-    },
+    ...mapActions({
+      getCarById: "getSingleCar",
+    }),
     goBack() {
       this.$router.go(-1);
     },
+  },
+  computed: {
+    ...mapState({
+      carData: (state) => state.singleCar,
+      loading: (state) => state.isLoading,
+    }),
   },
 };
 </script>

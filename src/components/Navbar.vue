@@ -18,10 +18,10 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="canLogIn">
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!canLogIn">
             <router-link class="nav-link" to="/register">Register</router-link>
           </li>
         </ul>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "NavBar",
   props: {
@@ -40,6 +41,9 @@ export default {
     goHome() {
       this.$router.push({ name: "Home" });
     },
+  },
+  computed: {
+    ...mapGetters(["canLogIn"]),
   },
 };
 </script>
