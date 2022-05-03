@@ -1,10 +1,4 @@
-practical-05
-### Login Credentials
-```
-email:admin@gmail.com
-password:test@123
-```
-
+practical-07
 
 ## Project setup
 ```
