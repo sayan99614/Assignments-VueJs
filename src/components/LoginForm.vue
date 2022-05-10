@@ -30,7 +30,10 @@
               <ErrorMessage class="text-danger" name="password" />
             </div>
             <div class="text-center mt-3">
-              <button class="btn btn-primary w-100">login</button>
+              <button class="btn btn-primary w-100">
+                <span v-if="isLoading">Loading...</span>
+                <span v-else>Login</span>
+              </button>
             </div>
           </Form>
         </div>
@@ -43,7 +46,9 @@
 </template>
 
 <script>
+import { LOGIN_ACTION } from "@/store/storeConstants";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { mapActions } from "vuex";
 // import axios from "axios";
 import * as yup from "yup";
 export default {
@@ -61,31 +66,28 @@ export default {
 
     return {
       validationSchema,
+      isLoading: false,
     };
   },
   methods: {
+    ...mapActions("auth", {
+      loginUser: LOGIN_ACTION,
+    }),
     loginSubmit(data, formActions) {
-      console.log(data);
-      this.loginUser(data);
+      this.isLoading = true;
+      this.loginUser({
+        email: data.email,
+        password: data.password,
+      })
+        .then(() => {
+          this.isLoading = false;
+          this.$router.replace({ name: "Home" });
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          alert(error);
+        });
       formActions.resetForm();
-    },
-    loginUser(user) {
-      // axios
-      //   .post("https://testapi.io/api/dartya/login", user)
-      //   .then((response) => {
-      //     if (response.status === 200) {
-      //       this.$router.push({ name: "Home" });
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     alert("something went wrong please try again");
-      //   });
-      if (user.email === "admin@gmail.com" && user.password === "test@123") {
-        this.$router.push({ name: "Home" });
-      } else {
-        alert("email or password is wrong");
-      }
     },
   },
 };

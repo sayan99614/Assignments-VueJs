@@ -15,14 +15,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
+          <li class="nav-item" v-if="isAuthenticated">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!isAuthenticated">
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="!isAuthenticated">
             <router-link class="nav-link" to="/register">Register</router-link>
+          </li>
+          <li class="nav-item" v-if="isAuthenticated">
+            <a href="#" class="nav-link" @click.prevent="logoutUser">Logout</a>
           </li>
         </ul>
       </div>
@@ -31,15 +34,29 @@
 </template>
 
 <script>
+import { IS_AUTHENTICATED_USER, LOGOUT_ACTION } from "@/store/storeConstants";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "NavBar",
   props: {
     heading: String,
   },
   methods: {
+    ...mapActions("auth", {
+      logout: LOGOUT_ACTION,
+    }),
     goHome() {
       this.$router.push({ name: "Home" });
     },
+    logoutUser() {
+      this.logout();
+      this.$router.replace({ name: "Login" });
+    },
+  },
+  computed: {
+    ...mapGetters("auth", {
+      isAuthenticated: IS_AUTHENTICATED_USER,
+    }),
   },
 };
 </script>

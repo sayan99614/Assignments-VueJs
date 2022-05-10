@@ -3,7 +3,6 @@ import {
   SET_USER_TOKEN,
   LOGIN_ACTION,
   LOGOUT_ACTION,
-  AUTH_USER_ACTION,
   USER_AUTO_LOGIN,
   AUTO_LOGOUT,
 } from "../storeConstants";
@@ -13,17 +12,75 @@ import ErrorHandling from "../../services/ErrorHandling";
 let timer = null;
 
 export default {
-  [SIGNUP_ACTION]({ dispatch }, payload) {
-    dispatch(AUTH_USER_ACTION, {
-      ...payload,
-      url: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCbT8_payb0d7L7AGwE-yzEcUnqdhnMblY",
-    });
+  async [SIGNUP_ACTION]({ commit, dispatch }, payload) {
+    const postData = {
+      email: payload.email,
+      password: payload.password,
+      returnSecureToken: true,
+    };
+
+    let response;
+    try {
+      response = await axios.post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCbT8_payb0d7L7AGwE-yzEcUnqdhnMblY",
+        postData
+      );
+    } catch (error) {
+      let errorMsg = ErrorHandling.handle(
+        error.response.data.error.errors[0].message
+      );
+      throw errorMsg;
+    }
+    if (response.status === 200) {
+      const responseData = {
+        token: response.data.idToken,
+        email: response.data.email,
+        refreshToken: response.data.refreshToken,
+        expiresIn: response.data.expiresIn,
+        userId: response.data.localId,
+        loginTime: new Date().getTime(),
+      };
+      localStorage.setItem("userData", JSON.stringify(responseData));
+      commit(SET_USER_TOKEN, responseData);
+
+      const logoutTime = responseData.expiresIn * 1000;
+      timer = setTimeout(() => dispatch(AUTO_LOGOUT), logoutTime);
+    }
   },
-  [LOGIN_ACTION]({ dispatch }, payload) {
-    dispatch(AUTH_USER_ACTION, {
-      ...payload,
-      url: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCbT8_payb0d7L7AGwE-yzEcUnqdhnMblY",
-    });
+  async [LOGIN_ACTION]({ dispatch, commit }, payload) {
+    const postData = {
+      email: payload.email,
+      password: payload.password,
+      returnSecureToken: true,
+    };
+
+    let response;
+    try {
+      response = await axios.post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCbT8_payb0d7L7AGwE-yzEcUnqdhnMblY",
+        postData
+      );
+    } catch (error) {
+      let errorMsg = ErrorHandling.handle(
+        error.response.data.error.errors[0].message
+      );
+      throw errorMsg;
+    }
+    if (response.status === 200) {
+      const responseData = {
+        token: response.data.idToken,
+        email: response.data.email,
+        refreshToken: response.data.refreshToken,
+        expiresIn: response.data.expiresIn,
+        userId: response.data.localId,
+        loginTime: new Date().getTime(),
+      };
+      localStorage.setItem("userData", JSON.stringify(responseData));
+      commit(SET_USER_TOKEN, responseData);
+
+      const logoutTime = responseData.expiresIn * 1000;
+      timer = setTimeout(() => dispatch(AUTO_LOGOUT), logoutTime);
+    }
   },
   [USER_AUTO_LOGIN]({ commit, dispatch }) {
     const userDataString = localStorage.getItem("userData");
@@ -44,40 +101,6 @@ export default {
   },
   [AUTO_LOGOUT]({ dispatch }) {
     dispatch(LOGOUT_ACTION);
-  },
-
-  async [AUTH_USER_ACTION]({ commit, dispatch }, payload) {
-    const postData = {
-      email: payload.email,
-      password: payload.password,
-      returnSecureToken: true,
-    };
-
-    let response;
-    try {
-      response = await axios.post(payload.url, postData);
-    } catch (error) {
-      const errorMsg = ErrorHandling.handle(
-        error.response.data.error.errors[0].message
-      );
-      throw errorMsg;
-    }
-
-    if (response.status === 200) {
-      const responseData = {
-        token: response.data.idToken,
-        email: response.data.email,
-        refreshToken: response.data.refreshToken,
-        expiresIn: response.data.expiresIn,
-        userId: response.data.localId,
-        loginTime: new Date().getTime(),
-      };
-      localStorage.setItem("userData", JSON.stringify(responseData));
-      commit(SET_USER_TOKEN, responseData);
-
-      const logoutTime = responseData.expiresIn * 1000;
-      timer = setTimeout(() => dispatch(AUTO_LOGOUT), logoutTime);
-    }
   },
 
   [LOGOUT_ACTION]({ commit }) {

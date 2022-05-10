@@ -6,17 +6,13 @@ export default class ErrorHandling {
   static handle(err) {
     switch (err) {
       case "EMAIL_EXISTS":
-        this.error = "email is already registered";
-        break;
+        return "email is already registered";
       case "EMAIL_NOT_FOUND":
-        this.error = "Invalid Email";
-        break;
+        return "Invalid Email";
       case "INVALID_PASSWORD":
-        this.error = "Invalid password";
-        break;
+        return "Invalid password";
       default:
-        this.error = "something went wrong please try again";
+        return "something went wrong please try again";
     }
-    return this.error;
   }
 }

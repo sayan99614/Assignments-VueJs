@@ -91,20 +91,18 @@ export default {
     }),
     registerSubmit(data, formActions) {
       this.isLoading = true;
-
-      try {
-        this.userSignup({
-          email: data.email,
-          password: data.password,
-        });
-        setTimeout(() => {
+      this.userSignup({
+        email: data.email,
+        password: data.password,
+      })
+        .then(() => {
           this.isLoading = false;
-          this.$router.push({ name: "Login" });
-        }, 2000);
-      } catch (error) {
-        alert(error);
-      }
-
+          this.$router.replace({ name: "Login" });
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          alert(error);
+        });
       formActions.resetForm();
     },
   },
