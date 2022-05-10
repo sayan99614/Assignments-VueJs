@@ -1,0 +1,9 @@
+export const SIGNUP_ACTION = "[actions] signup user";
+export const LOGIN_ACTION = "[actions] login user";
+export const SET_USER_TOKEN = "[mutations] set user token to state";
+export const GET_USER_TOKEN = "[getters] get user token";
+export const LOGOUT_ACTION = "[getters] get user token";
+export const AUTH_USER_ACTION = "[actions] user login and signup";
+export const USER_AUTO_LOGIN = "[actions] user auto login from local storeage";
+export const AUTO_LOGOUT = "[actions] user auto log out";
+export const IS_AUTHENTICATED_USER = "[getters] is user authenticated";

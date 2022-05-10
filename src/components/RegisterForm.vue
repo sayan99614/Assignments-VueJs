@@ -39,63 +39,6 @@
               />
               <ErrorMessage class="text-danger" name="confirmpassword" />
             </div>
-            <div class="mb-2">
-              <label class="form-label">Role</label>
-              <Field name="role" as="select" class="form-select">
-                <option value="">please select a role</option>
-                <option value="admin">Admin</option>
-                <option value="employee">Employee</option>
-                <option value="customer">Customer</option>
-              </Field>
-              <ErrorMessage class="text-danger" name="role" />
-            </div>
-            <div class="mb-2">
-              <div>
-                <label class="form-label">Gender</label>
-              </div>
-              <Field
-                name="gender"
-                class="form-check-input"
-                type="radio"
-                value="male"
-              ></Field>
-              Male
-              <Field
-                name="gender"
-                class="form-check-input"
-                type="radio"
-                value="female"
-              ></Field>
-              Female
-              <Field
-                name="gender"
-                class="form-check-input"
-                type="radio"
-                value="other"
-              ></Field>
-              Other
-              <ErrorMessage class="text-danger" name="gender" />
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Age</label>
-              <Field
-                type="number"
-                name="age"
-                placeholder="enter your age"
-                class="form-control"
-              />
-              <ErrorMessage class="text-danger" name="age" />
-            </div>
-            <div class="mb-2">
-              <label class="form-label">DOB</label>
-              <Field
-                type="date"
-                name="dob"
-                placeholder="enter your dob"
-                class="form-control"
-              />
-              <ErrorMessage class="text-danger" name="dob" />
-            </div>
             <div class="text-center mt-3">
               <button class="btn btn-primary w-100" :disabled="isLoading">
                 {{ isLoading ? "Loading..." : "submit" }}
@@ -104,7 +47,11 @@
           </Form>
         </div>
         <div class="col-sm-8">
-          <img class="img-fluid" src="../assets/signup.png" alt="signup" />
+          <img
+            class="img-fluid w-50 offset-md-4"
+            src="../assets/signup.png"
+            alt="signup"
+          />
         </div>
       </div>
     </div>
@@ -112,7 +59,9 @@
 </template>
 
 <script>
+import { SIGNUP_ACTION } from "@/store/storeConstants";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { mapActions } from "vuex";
 import * as yup from "yup";
 export default {
   name: "LoginForm",
@@ -129,22 +78,6 @@ export default {
         .string()
         .oneOf([yup.ref("password"), ""], "password did't match")
         .required("confirm password is required"),
-      role: yup.string().required(),
-      gender: yup.string().oneOf(["male", "female", "other"]).required(),
-      age: yup
-        .string()
-        .required()
-        .matches(/^[0-9\s]+$/, "Only numbers are allowed for this field "),
-      dob: yup
-        .date()
-        .required()
-        .test(
-          "future-date",
-          () => `invalid date you can't enter future date`,
-          (value) => {
-            return this.isFutureDate(this.formatDate(new Date(value)));
-          }
-        ),
     });
 
     return {
@@ -153,32 +86,26 @@ export default {
     };
   },
   methods: {
+    ...mapActions("auth", {
+      userSignup: SIGNUP_ACTION,
+    }),
     registerSubmit(data, formActions) {
-      /*used simple method because api is not woeking */
       this.isLoading = true;
-      setTimeout(() => {
-        this.isLoading = false;
-        this.$router.push({ name: "Login" });
-      }, 2000);
+
+      try {
+        this.userSignup({
+          email: data.email,
+          password: data.password,
+        });
+        setTimeout(() => {
+          this.isLoading = false;
+          this.$router.push({ name: "Login" });
+        }, 2000);
+      } catch (error) {
+        alert(error);
+      }
+
       formActions.resetForm();
-    },
-    isFutureDate(idate) {
-      let today = new Date().getTime();
-      idate = idate.split("/");
-
-      idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
-      return today - idate > 0;
-    },
-    formatDate(date) {
-      const yyyy = date.getFullYear();
-      let mm = date.getMonth() + 1; // Months start at 0!
-      let dd = date.getDate();
-
-      if (dd < 10) dd = "0" + dd;
-      if (mm < 10) mm = "0" + mm;
-
-      const result = dd + "/" + mm + "/" + yyyy;
-      return result;
     },
   },
 };
