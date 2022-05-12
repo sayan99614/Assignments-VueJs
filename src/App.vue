@@ -18,6 +18,7 @@ export default {
   },
   created() {
     this.userAutoLogin();
+    console.log(process.env.VUE_APP_FIREBASE_SIGNUP_URL);
   },
   methods: {
     ...mapActions("auth", {

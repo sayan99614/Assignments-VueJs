@@ -22,7 +22,7 @@ export default {
     let response;
     try {
       response = await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCbT8_payb0d7L7AGwE-yzEcUnqdhnMblY",
+        process.env.VUE_APP_FIREBASE_SIGNUP_URL,
         postData
       );
     } catch (error) {
@@ -57,7 +57,7 @@ export default {
     let response;
     try {
       response = await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCbT8_payb0d7L7AGwE-yzEcUnqdhnMblY",
+        process.env.VUE_APP_FIREBASE_LOGIN_URL,
         postData
       );
     } catch (error) {
