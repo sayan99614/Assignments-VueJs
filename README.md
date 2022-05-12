@@ -1,8 +1,9 @@
-practical-05
-### Login Credentials
+practical-08
+### Steps for using the app
 ```
-email:admin@gmail.com
-password:test@123
+1️⃣ Create an account with a valid email 📧.
+2️⃣ Login to the app.
+3️⃣ you can use now 💥
 ```
 
 
