@@ -1,5 +1,7 @@
 <template>
-  <h1 v-if="loading" class="text-center mt-5">Loading...</h1>
+  <div v-if="loading" class="text-center mt-5">
+    <Loading />
+  </div>
   <div v-else class="mt-3 container mb-3">
     <img
       src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/left-arrow_2b05-fe0f.png"
@@ -26,6 +28,7 @@
 
 <script>
 import axios from "axios";
+import Loading from "./Loading.vue";
 export default {
   name: "SingleCar",
   created() {
@@ -56,6 +59,7 @@ export default {
       this.$router.go(-1);
     },
   },
+  components: { Loading },
 };
 </script>
 

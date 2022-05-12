@@ -1,5 +1,7 @@
 <template>
-  <h1 v-if="isLoading" class="text-center mt-5">Loading...</h1>
+  <div v-if="isLoading" class="text-center mt-5">
+    <Loading />
+  </div>
   <div v-else class="container mt-2">
     <CarForm
       :addCar="addCar"
@@ -28,11 +30,13 @@
 import GalleryCard from "./GalleryCard.vue";
 import CarForm from "./CarForm.vue";
 import axios from "axios";
+import Loading from "./Loading.vue";
 export default {
   name: "HomeComponent",
   components: {
     GalleryCard,
     CarForm,
+    Loading,
   },
   created() {
     this.fetchData();

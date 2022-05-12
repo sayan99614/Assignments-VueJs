@@ -31,7 +31,7 @@
             </div>
             <div class="text-center mt-3">
               <button class="btn btn-primary w-100">
-                <span v-if="isLoading">Loading...</span>
+                <span v-if="isLoading"><LoadingButton /></span>
                 <span v-else>Login</span>
               </button>
             </div>
@@ -51,12 +51,14 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { mapActions } from "vuex";
 // import axios from "axios";
 import * as yup from "yup";
+import LoadingButton from "./LoadingButton.vue";
 export default {
   name: "LoginForm",
   components: {
     Form,
     Field,
     ErrorMessage,
+    LoadingButton,
   },
   data() {
     const validationSchema = yup.object({

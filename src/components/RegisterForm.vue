@@ -41,7 +41,8 @@
             </div>
             <div class="text-center mt-3">
               <button class="btn btn-primary w-100" :disabled="isLoading">
-                {{ isLoading ? "Loading..." : "submit" }}
+                <LoadingButton v-if="isLoading" />
+                <span v-else>Submit</span>
               </button>
             </div>
           </Form>
@@ -63,12 +64,14 @@ import { SIGNUP_ACTION } from "@/store/storeConstants";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { mapActions } from "vuex";
 import * as yup from "yup";
+import LoadingButton from "./LoadingButton.vue";
 export default {
   name: "LoginForm",
   components: {
     Form,
     Field,
     ErrorMessage,
+    LoadingButton,
   },
   data() {
     const validationSchema = yup.object({

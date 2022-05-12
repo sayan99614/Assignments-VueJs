@@ -87,7 +87,7 @@ export default {
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       const time = Math.abs(
-        new Date().getTime() + userData.expiresIn * 1000 - userData.loginTime
+        new Date().getTime() - (userData.expiresIn * 1000 + userData.loginTime)
       );
       if (time < 10000) {
         dispatch(AUTO_LOGOUT);

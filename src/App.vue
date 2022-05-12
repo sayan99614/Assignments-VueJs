@@ -8,11 +8,21 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Navbar from "./components/Navbar.vue";
+import { USER_AUTO_LOGIN } from "./store/storeConstants";
 export default {
   name: "App",
   components: {
     Navbar,
+  },
+  created() {
+    this.userAutoLogin();
+  },
+  methods: {
+    ...mapActions("auth", {
+      userAutoLogin: USER_AUTO_LOGIN,
+    }),
   },
 };
 </script>
