@@ -1,33 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../components/Home.vue";
-import Login from "../components/LoginForm.vue";
-import Register from "../components/RegisterForm.vue";
-import CarDetail from "../components/CarDetail.vue";
 import store from "../store/store";
 import { IS_AUTHENTICATED_USER } from "../store/storeConstants";
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import("../components/Home.vue"),
     meta: { auth: true },
   },
   {
     path: "/login",
     name: "Login",
-    component: Login,
+    component: () => import("../components/LoginForm.vue"),
     meta: { auth: true },
   },
   {
     path: "/register",
     name: "Register",
-    component: Register,
+    component: () => import("../components/RegisterForm.vue"),
     meta: { auth: true },
   },
   {
     path: "/car/:id",
     name: "CarDetail",
-    component: CarDetail,
+    component: () => import("../components/CarDetail.vue"),
     meta: { auth: true },
   },
 ];
