@@ -44,15 +44,16 @@ export default {
     getCarById() {
       axios
         .get(
-          `https://testapi.io/api/dartya/resource/cardata/${this.$route.params.id}}`
+          `${process.env.VUE_APP_CARDATA_BY_ID_URL}/${this.$route.params.id}`
         )
         .then((response) => {
           this.carData = response.data;
           this.loading = false;
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           alert("something went wrong please try after some time");
+          this.loading = false;
+          this.$router.replace("/");
         });
     },
     goBack() {

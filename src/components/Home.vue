@@ -65,7 +65,7 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get("https://testapi.io/api/dartya/resource/cardata")
+        .get(process.env.VUE_APP_CARDATA_BY_ID_URL)
         .then((res) => {
           this.carsInfo = res.data.data;
           this.isLoading = false;
@@ -77,7 +77,7 @@ export default {
     },
     sendData(data) {
       axios
-        .post("https://testapi.io/api/dartya/resource/cardata", data)
+        .post(process.env.VUE_APP_CARDATA_BY_ID_URL, data)
         .then((response) => {
           console.log(response);
           if (response.status === 201) {
@@ -91,7 +91,7 @@ export default {
     },
     deleteData(id) {
       axios
-        .delete(`https://testapi.io/api/dartya/resource/cardata/${id}`)
+        .delete(`${process.env.VUE_APP_CARDATA_BY_ID_URL}/${id}`)
         .then((response) => {
           if (response.status === 204) {
             this.fetchData();
@@ -104,7 +104,7 @@ export default {
     },
     putData(id, data) {
       axios
-        .put(`https://testapi.io/api/dartya/resource/cardata/${id}`, data)
+        .put(`${process.env.VUE_APP_CARDATA_BY_ID_URL}/${id}`, data)
         .then((response) => {
           if (response.status === 200) {
             this.fetchData();
