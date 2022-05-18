@@ -1,4 +1,4 @@
-import { IS_AUTHENTICATED_USER } from "../storeConstants";
+import { IS_AUTHENTICATED_USER } from "@/store/storeConstants";
 
 export default {
   [IS_AUTHENTICATED_USER](state) {

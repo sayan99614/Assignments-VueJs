@@ -5,9 +5,9 @@ import {
   LOGOUT_ACTION,
   USER_AUTO_LOGIN,
   AUTO_LOGOUT,
-} from "../storeConstants";
+} from "@/store/storeConstants";
 import axios from "axios";
-import ErrorHandling from "../../services/ErrorHandling";
+import ErrorHandling from "@/services/ErrorHandling";
 
 let timer = null;
 

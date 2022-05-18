@@ -64,7 +64,7 @@ import { SIGNUP_ACTION } from "@/store/storeConstants";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { mapActions } from "vuex";
 import * as yup from "yup";
-import LoadingButton from "./LoadingButton.vue";
+import LoadingButton from "@/components/LoadingButton.vue";
 export default {
   name: "LoginForm",
   components: {

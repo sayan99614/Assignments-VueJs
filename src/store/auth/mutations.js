@@ -1,4 +1,4 @@
-import { SET_USER_TOKEN } from "../storeConstants";
+import { SET_USER_TOKEN } from "@/store/storeConstants";
 export default {
   [SET_USER_TOKEN](state, payload) {
     state.token = payload.token;
